@@ -1,11 +1,11 @@
 FROM ruby:3.4.2
 RUN apt-get update -qq && apt-get install -y vim postgresql-client
-RUN mkdir /data
-WORKDIR /data
-COPY Gemfile /data/Gemfile
-COPY Gemfile.lock /data/Gemfile.lock
+RUN mkdir /boserikodata
+WORKDIR /boserikodata
+COPY Gemfile /boserikodata/Gemfile
+COPY Gemfile.lock /boserikodata/Gemfile.lock
 RUN bundle install
-COPY . /data
+COPY . /boserikodata
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
