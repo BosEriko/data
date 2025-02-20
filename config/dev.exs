@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :data, Data.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("DB_USERNAME"),
+  password: System.get_env("DB_PASSWORD"),
   hostname: "localhost",
   database: "data_dev",
   stacktrace: true,
