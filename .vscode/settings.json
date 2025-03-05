@@ -1,0 +1,28 @@
+{
+  "restoreTerminals.terminals": [
+    {
+      "splitTerminals": [
+        {
+          "name": "Phoenix Server",
+          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && mix phx.server"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "Phoenix Console",
+          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && iex -S mix"]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "Terminal",
+          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && clear"]
+        }
+      ]
+    }
+  ]
+}
