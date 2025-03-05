@@ -2,9 +2,9 @@
 
 To start your Phoenix server:
 
-  * Make sure you have a copy of `.env.dev`.
-  * Run `source .env.dev && mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `source .env.dev && mix phx.server` or inside IEx with `source .env.dev && iex -S mix phx.server`
+  * Make sure you have a copy of `config/database.exs`.
+  * Run `mix setup` to install and setup dependencies
+  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 

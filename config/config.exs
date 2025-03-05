@@ -6,6 +6,7 @@
 
 # General application configuration
 import Config
+import_config "database.exs"
 
 config :data,
   ecto_repos: [Data.Repo],
