@@ -11,8 +11,7 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user,
     }
     result = BosErikoDataSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -48,5 +47,29 @@ class GraphqlController < ApplicationController
     logger.error e.backtrace.join("\n")
 
     render json: { errors: [{ message: e.message, backtrace: e.backtrace }], data: {} }, status: 500
+  end
+
+  def current_user
+    return nil if request.headers['Authorization'].blank?
+    token = request.headers['Authorization']
+    if token.blank?
+      return nil
+    else
+      tenant = current_tenant
+      firebase_verifier = FirebaseVerifier.new(tenant.firebase.project_id)
+      decoded_token = firebase_verifier.decode(token)
+      email = decoded_token["email"]
+      user = User.find_by(
+        email: email,
+        tenant_id: tenant.id
+      )
+      if user.nil?
+        user = User.create!(
+          email: email,
+          tenant_id: tenant.id
+        )
+      end
+      user
+    end
   end
 end
