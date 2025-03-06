@@ -3,14 +3,6 @@
     {
       "splitTerminals": [
         {
-          "name": "Open Browser",
-          "commands": ["wslview 'http://localhost:3000/' && exit"]
-        }
-      ]
-    },
-    {
-      "splitTerminals": [
-        {
           "name": "Rails Server",
           "commands": [
             "sudo service redis-server start",
@@ -24,9 +16,7 @@
       "splitTerminals": [
         {
           "name": "Console",
-          "commands": [
-            "rails console"
-          ]
+          "commands": ["rails console"]
         }
       ]
     },
