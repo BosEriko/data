@@ -2,8 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("DB_USERNAME") { "db_user" } %>
-  password: <%= ENV.fetch("DB_PASSWORD") { "db_password" } %>
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
   host: <%= ENV.fetch("DB_HOST") { "localhost" } %>
 
 development:
@@ -17,6 +17,4 @@ test:
 production:
   <<: *default
   database: bos_eriko_data_production
-  username: <%= ENV.fetch("DB_USERNAME") { "db_user" } %>
-  password: <%= ENV.fetch("DB_PASSWORD") { "db_password" } %>
   host: heroku

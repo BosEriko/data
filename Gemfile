@@ -44,6 +44,9 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # A Ruby gem to load environment variables from `.env`. [https://github.com/bkeepers/dotenv]
+  gem "dotenv-rails"
 end
 
 
