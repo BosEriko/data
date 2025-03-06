@@ -3,16 +3,30 @@
     {
       "splitTerminals": [
         {
-          "name": "Phoenix Server",
-          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && mix phx.server"]
+          "name": "Open Browser",
+          "commands": ["wslview 'http://localhost:3000/' && exit"]
         }
       ]
     },
     {
       "splitTerminals": [
         {
-          "name": "Phoenix Console",
-          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && iex -S mix"]
+          "name": "Rails Server",
+          "commands": [
+            "sudo service redis-server start",
+            "sudo service postgresql start",
+            "bundle exec bin/dev"
+          ]
+        }
+      ]
+    },
+    {
+      "splitTerminals": [
+        {
+          "name": "Console",
+          "commands": [
+            "rails console"
+          ]
         }
       ]
     },
@@ -20,7 +34,7 @@
       "splitTerminals": [
         {
           "name": "Terminal",
-          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && clear"]
+          "commands": ["clear"]
         }
       ]
     }
