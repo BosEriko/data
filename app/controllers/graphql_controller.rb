@@ -50,26 +50,5 @@ class GraphqlController < ApplicationController
   end
 
   def current_user
-    return nil if request.headers['Authorization'].blank?
-    token = request.headers['Authorization']
-    if token.blank?
-      return nil
-    else
-      tenant = current_tenant
-      firebase_verifier = FirebaseVerifier.new(tenant.firebase.project_id)
-      decoded_token = firebase_verifier.decode(token)
-      email = decoded_token["email"]
-      user = User.find_by(
-        email: email,
-        tenant_id: tenant.id
-      )
-      if user.nil?
-        user = User.create!(
-          email: email,
-          tenant_id: tenant.id
-        )
-      end
-      user
-    end
   end
 end
