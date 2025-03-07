@@ -11,7 +11,8 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: current_user,
+      session: session,
+      current_user: current_user
     }
     result = BosErikoDataSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -50,5 +51,13 @@ class GraphqlController < ApplicationController
   end
 
   def current_user
+    return unless session[:token]
+
+    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
+    token = crypt.decrypt_and_verify session[:token]
+    user_id = token.gsub('user-id:', '').to_i
+    User.find user_id
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    nil
   end
 end
