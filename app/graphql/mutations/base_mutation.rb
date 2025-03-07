@@ -15,7 +15,7 @@ module Mutations
     end
 
     def check_authentication!
-      check_condition!(context[:current_user], 'You need to authenticate to perform this action')
+      check_condition!(context[:current_user], "You need to authenticate to perform this action")
     end
 
     def check_condition!(condition, error_message)
