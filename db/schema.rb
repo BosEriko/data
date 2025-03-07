@@ -17,7 +17,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_091135) do
   create_table "members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "server_id", null: false
-    t.integer "membership_type", default: 0, null: false
+    t.string "membership", default: "user", null: false
     t.string "first_name"
     t.string "last_name"
     t.string "username"

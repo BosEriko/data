@@ -2,8 +2,7 @@ class Member < ApplicationRecord
   belongs_to :user
   belongs_to :server
 
-  enum membership_type: { user: 0, admin: 1 }
+  enum :membership, { user: "user", admin: "admin" }
 
-  validates :membership_type, presence: true
+  validates :membership, presence: true
 end
-
