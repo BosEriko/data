@@ -13,7 +13,7 @@ gem "puma", ">= 5.0"
 gem "bcrypt", "~> 3.1.7"
 
 # Ruby implementation of GraphQL [https://github.com/rmosolgo/graphql-ruby]
-gem 'graphql'
+gem "graphql"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -51,5 +51,3 @@ group :development, :test do
   # A Ruby gem to load environment variables from `.env`. [https://github.com/bkeepers/dotenv]
   gem "dotenv-rails"
 end
-
-

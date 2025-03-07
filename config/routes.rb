@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root "graphql#execute"
+  post "/", to: "graphql#execute"
 end
