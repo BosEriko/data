@@ -6,4 +6,4 @@ module Types
     field :sign_up_user, mutation: Mutations::User::SignUp
     field :sign_in_user, mutation: Mutations::User::SignIn
   end
-end 
+end
