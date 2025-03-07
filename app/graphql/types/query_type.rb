@@ -11,7 +11,7 @@ module Types
     end
 
     field :nodes, [ Types::NodeType, null: true ], null: true, description: "Fetches a list of objects given a list of IDs." do
-      argument :ids, [ID], required: true, description: "IDs of the objects."
+      argument :ids, [ ID ], required: true, description: "IDs of the objects."
     end
 
     def nodes(ids:)

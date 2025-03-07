@@ -15,7 +15,7 @@ module BosErikoData
       # GraphQL-Ruby query log tags:
       current_graphql_operation: -> { GraphQL::Current.operation_name },
       current_graphql_field: -> { GraphQL::Current.field&.path },
-      current_dataloader_source: -> { GraphQL::Current.dataloader_source_class },
+      current_dataloader_source: -> { GraphQL::Current.dataloader_source_class }
     ]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
@@ -39,6 +39,6 @@ module BosErikoData
     config.api_only = true
 
     # Enable session middleware
-    config.middleware.use ActionDispatch::Session::CookieStore, key: '_bos_eriko_data_session'
+    config.middleware.use ActionDispatch::Session::CookieStore, key: "_bos_eriko_data_session"
   end
 end
