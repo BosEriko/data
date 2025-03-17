@@ -1,0 +1,16 @@
+mutation SignUpMember($email: String!, $password: String!, $serverKey: String!) {
+  signUpMember(
+    input: {
+      signUpData: {
+        credentials: {
+          email: $email,
+          password: $password,
+          serverKey: $serverKey
+        }
+      }
+    }
+  ) {
+    id
+    email
+  }
+}

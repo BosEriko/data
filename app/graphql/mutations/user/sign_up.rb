@@ -3,11 +3,13 @@
 module Mutations
   module User
     class SignUp < ::Mutations::BaseMutation
-      class SignUpData < Types::BaseInputObject
+      REQUEST_DEFINITION = File.read(File.join(__dir__, "sign_up.graphql"))
+
+      class UserSignUpData < Types::BaseInputObject
         argument :credentials, Types::UserAttributes::SignUp, required: false
       end
 
-      argument :sign_up_data, SignUpData, required: false
+      argument :sign_up_data, UserSignUpData, required: false
 
       type Types::UserType
 

@@ -3,6 +3,8 @@
 module Mutations
   module User
     class SignIn < ::Mutations::BaseMutation
+      REQUEST_DEFINITION = File.read(File.join(__dir__, "sign_in.graphql"))
+
       null true
 
       argument :credentials, Types::UserAttributes::SignIn, required: false

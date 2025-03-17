@@ -1,0 +1,12 @@
+mutation SignInMember($email: String!, $password: String!, $serverKey: String!) {
+  signInMember(
+    input: { credentials: { email: $email, password: $password, serverKey: $serverKey } }
+  ) {
+    token
+    member {
+      id
+      email
+      serverId
+    }
+  }
+}
