@@ -5,5 +5,9 @@ module Types
     # User Mutations
     field :sign_up_user, mutation: Mutations::User::SignUp
     field :sign_in_user, mutation: Mutations::User::SignIn
+
+    # Member Mutations
+    field :sign_up_member, mutation: Mutations::Member::SignUp
+    field :sign_in_member, mutation: Mutations::Member::SignIn
   end
 end
