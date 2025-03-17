@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_07_091135) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_17_025636) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -29,6 +29,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_091135) do
     t.index ["email", "server_id"], name: "index_members_on_email_and_server_id", unique: true
     t.index ["server_id"], name: "index_members_on_server_id"
     t.index ["user_id"], name: "index_members_on_user_id"
+  end
+
+  create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "server_id", null: false
+    t.uuid "member_id", null: false
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_posts_on_member_id"
+    t.index ["server_id"], name: "index_posts_on_server_id"
   end
 
   create_table "servers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -53,4 +64,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_091135) do
 
   add_foreign_key "members", "servers"
   add_foreign_key "members", "users"
+  add_foreign_key "posts", "members"
+  add_foreign_key "posts", "servers"
 end

@@ -1,6 +1,8 @@
 class Server < ApplicationRecord
-  has_many :members
+  has_many :members, dependent: :destroy
   has_many :users, through: :members
+
+  has_many :posts, dependent: :destroy
 
   before_create :generate_keys
 
