@@ -13,9 +13,10 @@
 ActiveRecord::Schema[8.0].define(version: 2025_03_07_091135) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.uuid "server_id", null: false
     t.string "membership", default: "user", null: false
     t.string "first_name"
