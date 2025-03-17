@@ -1,0 +1,7 @@
+query getPosts($limit: Int!, $offset: Int!) {
+  posts(limit: $limit, offset: $offset) {
+    id
+    title
+    content
+  }
+}
