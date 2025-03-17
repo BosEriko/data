@@ -3,6 +3,8 @@ class CreateMembers < ActiveRecord::Migration[8.0]
     create_table :members, id: :uuid do |t|
       t.references :user, type: :uuid, foreign_key: true, null: true
       t.references :server, type: :uuid, foreign_key: true, null: false
+      t.string :email, null: false
+      t.string :password_digest
       t.string :first_name
       t.string :last_name
       t.string :username
@@ -10,5 +12,7 @@ class CreateMembers < ActiveRecord::Migration[8.0]
 
       t.timestamps
     end
+
+    add_index :members, [:email, :server_id], unique: true
   end
 end

@@ -18,13 +18,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_091135) do
   create_table "members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "server_id", null: false
-    t.string "membership", default: "user", null: false
+    t.string "email", null: false
+    t.string "password_digest"
     t.string "first_name"
     t.string "last_name"
     t.string "username"
     t.integer "age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email", "server_id"], name: "index_members_on_email_and_server_id", unique: true
     t.index ["server_id"], name: "index_members_on_server_id"
     t.index ["user_id"], name: "index_members_on_user_id"
   end
@@ -43,7 +45,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_091135) do
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "email"
+    t.string "email", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

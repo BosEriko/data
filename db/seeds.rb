@@ -83,6 +83,8 @@ end
 # Create members
 User.all.each_with_index do |user, index|
   created_member = Member.new()
+  created_member.email = users[index][:email]
+  created_member.password = users[index][:password]
   created_member.server_id = Server.find_by(identifier: "kurustudio").id
   created_member.user_id = user.id
   created_member.save!
