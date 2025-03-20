@@ -12,5 +12,8 @@ module Types
 
     # Post Mutations
     field :create_post, mutation: Mutations::Post::Create
+
+    # Server Mutations
+    field :create_server, mutation: Mutations::Server::Create
   end
 end
