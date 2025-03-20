@@ -11,7 +11,8 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: current_user
+      current_user: current_user,
+      current_member: current_member
     }
     result = BosErikoDataSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -49,9 +50,24 @@ class GraphqlController < ApplicationController
     render json: { errors: [ { message: e.message, backtrace: e.backtrace } ], data: {} }, status: 500
   end
 
+  def current_member
+    auth_header = request.headers["Authorization"]
+    return unless auth_header&.start_with?("Member ")
+
+    token = auth_header.split(" ")[1]
+    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
+
+    decrypted_token = crypt.decrypt_and_verify(token)
+    member_id = decrypted_token.gsub("member-id:", "")
+
+    Member.find(member_id)
+  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    nil
+  end
+
   def current_user
     auth_header = request.headers["Authorization"]
-    return unless auth_header&.start_with?("Bearer ")
+    return unless auth_header&.start_with?("User ")
 
     token = auth_header.split(" ")[1]
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
