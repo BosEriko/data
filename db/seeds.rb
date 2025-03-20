@@ -66,18 +66,19 @@ servers = [
   },
 ]
 
-# Create servers
-servers.each_with_index do |server, index|
-  created_server = Server.new(server)
-  created_server.save!
-end
-
 # Create users
 users.each_with_index do |user, index|
   created_user = User.new()
   created_user.email = user[:email]
   created_user.password = user[:password]
   created_user.save!
+end
+
+# Create servers
+servers.each_with_index do |server, index|
+  created_server = Server.new(server)
+  created_server.creator_id = User.first.id
+  created_server.save!
 end
 
 # Create members

@@ -48,8 +48,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_025636) do
     t.string "identifier", null: false
     t.text "domains", default: [], array: true
     t.text "features", default: [], array: true
+    t.uuid "creator_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_servers_on_creator_id"
     t.index ["identifier"], name: "index_servers_on_identifier", unique: true
     t.index ["private_key"], name: "index_servers_on_private_key", unique: true
     t.index ["public_key"], name: "index_servers_on_public_key", unique: true
@@ -66,4 +68,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_17_025636) do
   add_foreign_key "members", "users"
   add_foreign_key "posts", "members"
   add_foreign_key "posts", "servers"
+  add_foreign_key "servers", "users", column: "creator_id"
 end
