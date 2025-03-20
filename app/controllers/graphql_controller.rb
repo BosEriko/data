@@ -50,33 +50,27 @@ class GraphqlController < ApplicationController
     render json: { errors: [ { message: e.message, backtrace: e.backtrace } ], data: {} }, status: 500
   end
 
-  def current_member
-    auth_header = request.headers["Authorization"]
-    return unless auth_header&.start_with?("Member ")
-
-    token = auth_header.split(" ")[1]
-    crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
-
-    decrypted_token = crypt.decrypt_and_verify(token)
-    member_id = decrypted_token.gsub("member-id:", "")
-
-    Member.find(member_id)
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
-    nil
+  def current_user
+    decrypt_token(request.headers["Authorization"], "User ", User, "user-id")
   end
 
-  def current_user
-    auth_header = request.headers["Authorization"]
-    return unless auth_header&.start_with?("User ")
+  def current_member
+    decrypt_token(request.headers["Authorization"], "Member ", Member, "member-id")
+  end
+
+  private
+
+  def decrypt_token(auth_header, prefix, model, id_key)
+    return unless auth_header&.start_with?(prefix)
 
     token = auth_header.split(" ")[1]
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
 
     decrypted_token = crypt.decrypt_and_verify(token)
-    member_id = decrypted_token.gsub("member-id:", "")
+    id = decrypted_token.gsub("#{id_key}:", "")
 
-    Member.find(member_id)
-  rescue ActiveSupport::MessageVerifier::InvalidSignature
+    model.find(id)
+  rescue ActiveSupport::MessageVerifier::InvalidSignature, ActiveRecord::RecordNotFound
     nil
   end
 end
