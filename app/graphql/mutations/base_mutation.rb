@@ -26,6 +26,10 @@ module Mutations
       check_condition!(context[:current_member], "You need to authenticate to perform this action")
     end
 
+    def check_admin_privilege!
+      # Check context[:current_user].id if passes Server.is_admin?()
+    end
+
     def check_condition!(condition, error_message)
       raise GraphQL::ExecutionError, error_message unless condition
     end

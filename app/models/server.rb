@@ -10,6 +10,10 @@ class Server < ApplicationRecord
 
   validates :identifier, presence: true, uniqueness: true
 
+  def is_admin?(user_id)
+    users.exists?(id: user_id)
+  end
+
   private
 
   def generate_keys
