@@ -3,17 +3,17 @@ module Mutations
     class Create < ::Mutations::BaseMutation
       REQUEST_DEFINITION = File.read(File.join(__dir__, "create.graphql"))
 
-      argument :server_attributes, Types::ServerAttributes::Create, required: true
+      argument :create_server_attributes, Types::ServerAttributes::Create, required: true
 
       field :server, Types::ServerType, null: true
       field :errors, [String], null: true
 
-      def resolve(server_attributes:)
+      def resolve(create_server_attributes:)
         check_authentication!
         check_admin!
 
         server = ::Server.new(
-          identifier: server_attributes[:identifier],
+          identifier: create_server_attributes[:identifier],
           creator_id: context[:current_user].id
         )
 
