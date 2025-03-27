@@ -6,7 +6,10 @@ module Types
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
 
-    # Post Mutations
+    # Server Query
+    field :servers, resolver: Queries::Server::All
+
+    # Post Query
     field :posts, resolver: Queries::Post::All
   end
 end
