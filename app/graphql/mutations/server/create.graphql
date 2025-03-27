@@ -1,5 +1,5 @@
 mutation createServer($identifier: String!) {
-  createServer(input: { serverAttributes: { identifier: $identifier } }) {
+  createServer(input: { createServerAttributes: { identifier: $identifier } }) {
     errors
     server {
       id
