@@ -1,4 +1,4 @@
 class Post < ApplicationRecord
-  belongs_to :server
+  include ScopeToServer
   belongs_to :member
 end

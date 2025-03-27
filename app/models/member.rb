@@ -1,8 +1,8 @@
 class Member < ApplicationRecord
+  include ScopeToServer
   has_secure_password
 
   belongs_to :user, optional: true
-  belongs_to :server
 
   has_many :posts, dependent: :destroy
 
