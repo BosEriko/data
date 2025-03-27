@@ -17,7 +17,7 @@ module Mutations
         ::Member.create!(
           email: sign_up_data&.[](:credentials)&.[](:email),
           password: sign_up_data&.[](:credentials)&.[](:password),
-          server_id: Server.find_by(public_key: sign_up_data&.[](:credentials)&.[](:server_key)).id
+          server_id: ::Server.find_by(public_key: sign_up_data&.[](:credentials)&.[](:server_key)).id
         )
       end
     end
