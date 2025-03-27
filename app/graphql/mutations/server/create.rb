@@ -11,12 +11,19 @@ module Mutations
       def resolve(server_attributes:)
         check_authentication!
         check_admin!
+
         server = ::Server.new(
           identifier: server_attributes[:identifier],
           creator_id: context[:current_user].id
         )
 
         if server.save
+          server.members.create(
+            email: context[:current_user].email,
+            password_digest: context[:current_user].password_digest,
+            user_id: context[:current_user].id
+          )
+
           {
             server: server,
             errors: []
