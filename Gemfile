@@ -15,6 +15,9 @@ gem "bcrypt", "~> 3.1.7"
 # Ruby implementation of GraphQL [https://github.com/rmosolgo/graphql-ruby]
 gem "graphql"
 
+# Track changes to your rails models [https://github.com/paper-trail-gem/paper_trail]
+gem "paper_trail"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

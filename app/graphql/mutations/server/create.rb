@@ -12,6 +12,8 @@ module Mutations
         check_authentication!
         check_admin!
 
+        ::PaperTrail.request.whodunnit = context[:current_user]&.id.to_s
+
         server = ::Server.new(
           identifier: create_server_attributes[:identifier],
           creator_id: context[:current_user].id
