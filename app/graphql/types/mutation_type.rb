@@ -9,6 +9,7 @@ module Types
     # Member Mutations
     field :sign_up_member, mutation: Mutations::Member::SignUp
     field :sign_in_member, mutation: Mutations::Member::SignIn
+    field :update_member, mutation: Mutations::Member::Update
 
     # Post Mutations
     field :create_post, mutation: Mutations::Post::Create

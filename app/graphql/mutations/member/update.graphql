@@ -1,0 +1,25 @@
+mutation updateMember(
+  $id: ID
+  $firstName: String
+  $lastName: String
+  $age: Int
+) {
+  updateMember(
+    input: {
+      updateMemberAttributes: {
+        id: $id
+        firstName: $firstName
+        lastName: $lastName
+        age: $age
+      }
+    }
+  ) {
+    errors
+    member {
+      id
+      firstName
+      lastName
+      age
+    }
+  }
+}

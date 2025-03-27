@@ -1,0 +1,8 @@
+query allMembers($serverKey: String!, $limit: Int, $offset: Int) {
+  allMembers(serverKey: $serverKey, limit: $limit, offset: $offset) {
+    id
+    firstName
+    lastName
+    age
+  }
+}
