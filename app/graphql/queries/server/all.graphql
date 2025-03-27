@@ -1,5 +1,5 @@
-query getServers($limit: Int!, $offset: Int!) {
-  servers(limit: $limit, offset: $offset) {
+query allServers($limit: Int!, $offset: Int!) {
+  allServers(limit: $limit, offset: $offset) {
     id
     identifier
   }

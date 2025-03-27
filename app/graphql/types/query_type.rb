@@ -7,9 +7,9 @@ module Types
     include GraphQL::Types::Relay::HasNodesField
 
     # Server Query
-    field :servers, resolver: Queries::Server::All
+    field :all_servers, resolver: Queries::Server::All
 
     # Post Query
-    field :posts, resolver: Queries::Post::All
+    field :all_posts, resolver: Queries::Post::All
   end
 end

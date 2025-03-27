@@ -1,5 +1,5 @@
-query getPosts($limit: Int!, $offset: Int!) {
-  posts(limit: $limit, offset: $offset) {
+query allPosts($limit: Int!, $offset: Int!) {
+  allPosts(limit: $limit, offset: $offset) {
     id
     title
     content
