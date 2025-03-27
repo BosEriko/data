@@ -9,7 +9,8 @@ module Mutations
       field :errors, [String], null: true
 
       def resolve(server_attributes:)
-        check_user_authentication!
+        check_authentication!
+        check_admin!
         server = ::Server.new(
           identifier: server_attributes[:identifier],
           creator_id: context[:current_user].id
