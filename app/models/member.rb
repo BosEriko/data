@@ -10,6 +10,10 @@ class Member < ApplicationRecord
 
   before_save :nullify_invalid_user
 
+  def role
+    self.class.name.downcase
+  end
+
   def admin?
     user_id.present?
   end

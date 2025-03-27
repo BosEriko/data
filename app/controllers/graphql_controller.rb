@@ -11,8 +11,7 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: current_user,
-      current_member: current_member
+      current_user: current_user
     }
     result = BosErikoDataSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -51,23 +50,17 @@ class GraphqlController < ApplicationController
   end
 
   def current_user
-    decrypt_token(request.headers["Authorization"], "User ", User, "user-id")
-  end
+    authorization = request.headers["Authorization"]
+    type = request.headers["Authorization-Type"]
+    model = { "member" => Member, "user" => User }[type].presence
 
-  def current_member
-    decrypt_token(request.headers["Authorization"], "Member ", Member, "member-id")
-  end
+    return unless authorization&.start_with?("Bearer ") && model.present?
 
-  private
-
-  def decrypt_token(auth_header, prefix, model, id_key)
-    return unless auth_header&.start_with?(prefix)
-
-    token = auth_header.split(" ")[1]
+    token = authorization.split(" ")[1]
     crypt = ActiveSupport::MessageEncryptor.new(Rails.application.credentials.secret_key_base.byteslice(0..31))
 
     decrypted_token = crypt.decrypt_and_verify(token)
-    id = decrypted_token.gsub("#{id_key}:", "")
+    id = decrypted_token.gsub("#{type}-id:", "")
 
     model.find(id)
   rescue ActiveSupport::MessageVerifier::InvalidSignature, ActiveRecord::RecordNotFound
