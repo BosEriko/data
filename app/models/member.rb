@@ -1,5 +1,6 @@
 class Member < ApplicationRecord
   include ScopeToServer
+  include IdentityMethods
   has_secure_password
 
   belongs_to :user, optional: true
@@ -9,10 +10,6 @@ class Member < ApplicationRecord
   validates :email, presence: true, uniqueness: { scope: :server_id, message: "should be unique within a server" }
 
   before_save :nullify_invalid_user
-
-  def role
-    self.class.name.downcase
-  end
 
   def admin?
     user_id.present?

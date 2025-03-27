@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include IdentityMethods
   has_secure_password
 
   has_many :members
@@ -7,8 +8,4 @@ class User < ApplicationRecord
   has_many :created_servers, foreign_key: "creator_id", class_name: "Server"
 
   validates :email, presence: true, uniqueness: true
-
-  def role
-    self.class.name.downcase
-  end
 end
