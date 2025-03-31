@@ -1,4 +1,5 @@
 class Member < ApplicationRecord
+  has_paper_trail
   include ScopeToServer
   include IdentityMethods
   has_secure_password
@@ -13,6 +14,15 @@ class Member < ApplicationRecord
 
   def admin?
     user_id.present?
+  end
+
+  def registered_by
+    user_id = versions.first&.whodunnit
+    User.find_by(id: user_id) || nil
+  end
+
+  def is_registered_by_an_admin?
+    registered_by&.id != nil
   end
 
   private
