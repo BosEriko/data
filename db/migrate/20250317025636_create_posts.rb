@@ -3,8 +3,10 @@ class CreatePosts < ActiveRecord::Migration[8.0]
     create_table :posts, id: :uuid do |t|
       t.references :server, type: :uuid, foreign_key: true, null: false
       t.references :member, type: :uuid, foreign_key: true, null: false
+      t.integer :comments_count, default: 0, null: false
+      t.integer :likes_count, default: 0, null: false
       t.string :title
-      t.text :content
+
       t.timestamps
     end
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_01_025853) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_01_030412) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -53,6 +53,31 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_025853) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "commentable_type", null: false
+    t.uuid "commentable_id", null: false
+    t.uuid "member_id", null: false
+    t.uuid "server_id", null: false
+    t.integer "likes_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
+    t.index ["member_id"], name: "index_comments_on_member_id"
+    t.index ["server_id"], name: "index_comments_on_server_id"
+  end
+
+  create_table "likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "likeable_type", null: false
+    t.uuid "likeable_id", null: false
+    t.uuid "member_id", null: false
+    t.uuid "server_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
+    t.index ["member_id"], name: "index_likes_on_member_id"
+    t.index ["server_id"], name: "index_likes_on_server_id"
+  end
+
   create_table "members", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id"
     t.uuid "server_id", null: false
@@ -72,8 +97,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_025853) do
   create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "server_id", null: false
     t.uuid "member_id", null: false
+    t.integer "comments_count", default: 0, null: false
+    t.integer "likes_count", default: 0, null: false
     t.string "title"
-    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["member_id"], name: "index_posts_on_member_id"
@@ -115,6 +141,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_01_025853) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "members"
+  add_foreign_key "comments", "servers"
+  add_foreign_key "likes", "members"
+  add_foreign_key "likes", "servers"
   add_foreign_key "members", "servers"
   add_foreign_key "members", "users"
   add_foreign_key "posts", "members"
