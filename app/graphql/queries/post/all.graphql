@@ -1,4 +1,4 @@
-query allPosts($limit: Int, $offset: Int, $serverKey: String) {
+query allPosts($limit: Int, $offset: Int, $serverKey: String!) {
   allPosts(limit: $limit, offset: $offset, serverKey: $serverKey) {
     id
     title
