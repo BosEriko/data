@@ -1,0 +1,9 @@
+mutation createComment($content: String!, $postId: String!, $serverKey: String) {
+  createComment(input: { createCommentAttributes: { content: $content, postId: $postId, serverKey: $serverKey } }) {
+    errors
+    comment {
+      id
+      content
+    }
+  }
+}

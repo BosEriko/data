@@ -10,9 +10,15 @@ module Types
     field :sign_up_member, mutation: Mutations::Member::SignUp
     field :sign_in_member, mutation: Mutations::Member::SignIn
     field :update_member, mutation: Mutations::Member::Update
+    
+    # Like Mutations
+    field :create_like, mutation: Mutations::Like::Create
 
     # Post Mutations
     field :create_post, mutation: Mutations::Post::Create
+
+    # Comment Mutations
+    field :create_comment, mutation: Mutations::Comment::Create
 
     # Server Mutations
     field :create_server, mutation: Mutations::Server::Create

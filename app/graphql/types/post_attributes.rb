@@ -6,7 +6,8 @@ module Types
       graphql_name "PostCreate"
 
       argument :title, String, required: true
-      argument :content, String, required: true
+      argument :description, String, required: true
+      argument :server_key, String, required: false
     end
   end
 end

@@ -1,10 +1,10 @@
-mutation createPost($title: String!, $content: String!) {
-  createPost(input: { createPostAttributes: { title: $title, content: $content } }) {
+mutation createPost($title: String!, $description: String!, $serverKey: String) {
+  createPost(input: { createPostAttributes: { title: $title, description: $description, serverKey: $serverKey } }) {
     errors
     post {
       id
       title
-      content
+      description
     }
   }
 }

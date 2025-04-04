@@ -9,12 +9,25 @@ module Mutations
       field :errors, [String], null: true
 
       def resolve(create_post_attributes:)
-        check_member_authentication!
+        check_authentication!
+
+        server = if context[:current_user].role == "user"
+          ::Server.find_by(public_key: create_post_attributes[:server_key])
+        else
+          context[:current_user].server
+        end
+
+        member_id = if context[:current_user].role == "user"
+          ::Member.find_by(user_id: context[:current_user].id, server_id: server.id)&.id
+        else
+          context[:current_user].id
+        end
+
         post = ::Post.new(
           title: create_post_attributes[:title],
-          content: create_post_attributes[:content],
-          member_id: context[:current_member].id,
-          server_id: context[:current_member].server_id
+          description: create_post_attributes[:description],
+          member_id: member_id,
+          server_id: server.id
         )
 
         if post.save

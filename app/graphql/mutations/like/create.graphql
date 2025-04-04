@@ -1,0 +1,8 @@
+mutation createLike($likeableId: ID!, $likeableType: String!, $serverKey: String) {
+  createLike(input: { createLikeAttributes: { likeableId: $likeableId, likeableType: $likeableType, serverKey: $serverKey } }) {
+    errors
+    like {
+      id
+    }
+  }
+}
