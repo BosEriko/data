@@ -26,7 +26,7 @@ module Mutations
           }
         else
           {
-            user: nil,
+            member: nil,
             errors: member.errors.full_messages
           }
         end
