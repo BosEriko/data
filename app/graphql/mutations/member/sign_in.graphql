@@ -6,7 +6,6 @@ mutation SignInMember($email: String!, $password: String!, $serverKey: String!) 
     member {
       id
       email
-      serverId
     }
   }
 }
