@@ -15,7 +15,7 @@ module Mutations
     end
 
     def current_member
-      context[:current_user].admin? ? ::Member.find_by(user_id: context[:current_user].id) : context[:current_user]
+      context[:current_user].admin? ? ::Member.find_by(user_id: context[:current_user].id, server_id: context[:current_server].id) : context[:current_user]
     end
 
     def check_authentication!
@@ -23,11 +23,11 @@ module Mutations
     end
 
     def check_admin!
-      check_condition!(!context[:current_user].admin?, "You need to be an admin to perform this action")
+      check_condition!(context[:current_user].admin?, "You need to be an admin to perform this action")
     end
 
     def check_server_membership!
-      check_condition!(current_member.server_id != context[:current_server].id, "You need to be a member of this server to perform this action")
+      check_condition!(current_member.server_id == context[:current_server].id, "You need to be a member of this server to perform this action")
     end
 
     def check_item_ownership!(item, name)

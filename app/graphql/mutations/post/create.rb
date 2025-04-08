@@ -10,24 +10,13 @@ module Mutations
 
       def resolve(create_post_attributes:)
         check_authentication!
-
-        server = if context[:current_user].role == "user"
-          ::Server.find_by(public_key: create_post_attributes[:server_key])
-        else
-          context[:current_user].server
-        end
-
-        member_id = if context[:current_user].role == "user"
-          ::Member.find_by(user_id: context[:current_user].id, server_id: server.id)&.id
-        else
-          context[:current_user].id
-        end
+        check_server_membership!
 
         post = ::Post.new(
           title: create_post_attributes[:title],
           description: create_post_attributes[:description],
-          member_id: member_id,
-          server_id: server.id
+          member_id: current_member.id,
+          server_id: context[:current_server].id
         )
 
         if post.save
