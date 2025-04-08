@@ -11,7 +11,8 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: current_user
+      current_user: current_user,
+      current_server: current_server
     }
     result = BosErikoDataSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
@@ -51,7 +52,7 @@ class GraphqlController < ApplicationController
 
   def current_user
     authorization = request.headers["Authorization"]
-    type = request.headers["Authorization-Type"]
+    type = request.headers["X-Authorization-Type"]
     model = { "member" => Member, "user" => User }[type].presence
 
     return unless authorization&.start_with?("Bearer ") && model.present?
@@ -64,6 +65,17 @@ class GraphqlController < ApplicationController
 
     model.find(id)
   rescue ActiveSupport::MessageVerifier::InvalidSignature, ActiveRecord::RecordNotFound
+    nil
+  end
+
+  def current_server
+    provided_key = request.headers["X-Server-Key"].to_s.strip
+    return nil if provided_key.blank?
+
+    server = Server.find_by(public_key: provided_key)
+
+    return server if server && ActiveSupport::SecurityUtils.secure_compare(server.public_key, provided_key)
+
     nil
   end
 end
