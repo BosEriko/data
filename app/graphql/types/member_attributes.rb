@@ -21,7 +21,7 @@ module Types
     class Update < BaseInputObject
       graphql_name "MemberUpdate"
 
-      argument :id, ID, required: false
+      argument :id, ID, required: true
       argument :first_name, String, required: false
       argument :last_name, String, required: false
       argument :age, Integer, required: false
