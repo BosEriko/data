@@ -1,6 +1,10 @@
 module Queries
   # Base Queries class
   class BaseQuery < GraphQL::Schema::Resolver
+    def current_member
+      context[:current_user].admin? ? ::Member.find_by(user_id: context[:current_user].id) : context[:current_user]
+    end
+
     def check_authentication!
       check_condition!(context[:current_user], "You need to authenticate to perform this action")
     end
