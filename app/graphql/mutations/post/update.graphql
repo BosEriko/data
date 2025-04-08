@@ -1,0 +1,22 @@
+mutation updatePost(
+  $id: ID!,
+  $title: String,
+  $description: String
+) {
+  updatePost(
+    input: {
+      updatePostAttributes: {
+        id: $id,
+        title: $title,
+        description: $description
+      }
+    }
+  ) {
+    errors
+    post {
+      id
+      title
+      description
+    }
+  }
+}

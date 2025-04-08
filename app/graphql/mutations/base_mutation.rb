@@ -30,8 +30,8 @@ module Mutations
       check_condition!(current_member.server_id == context[:current_server].id, "You need to be a member of this server to perform this action")
     end
 
-    def check_item_ownership!(item, name)
-      error_message = "You need to be the owner of this #{name} to perform this action"
+    def check_item_ownership!(item)
+      error_message = "You need to be the owner of this #{item.class.name.downcase} to perform this action"
       if context[:current_user].admin?
         check_condition!(context[:current_server].is_admin?(context[:current_user].id), error_message)
       else
@@ -39,8 +39,8 @@ module Mutations
       end
     end
 
-    def check_item_scope!(item, name)
-      check_condition!(item.server_id != context[:current_server].id, "The #{name} needs to be from this server")
+    def check_item_scope!(item)
+      check_condition!(item.server_id == context[:current_server].id, "The #{item.class.name.downcase} needs to be from this server")
     end
 
     def check_condition!(condition, error_message)

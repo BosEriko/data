@@ -7,7 +7,14 @@ module Types
 
       argument :title, String, required: true
       argument :description, String, required: true
-      argument :server_key, String, required: false
+    end
+
+    class Update < BaseInputObject
+      graphql_name "PostUpdate"
+
+      argument :id, ID, required: true
+      argument :title, String, required: false
+      argument :description, String, required: false
     end
   end
 end
