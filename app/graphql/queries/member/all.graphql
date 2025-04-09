@@ -1,6 +1,7 @@
 query allMembers($limit: Int, $offset: Int) {
   allMembers(limit: $limit, offset: $offset) {
     id
+    email
     firstName
     lastName
     age
