@@ -17,6 +17,7 @@ mutation updateMember(
     errors
     member {
       id
+      email
       firstName
       lastName
       age
