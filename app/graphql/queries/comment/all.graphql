@@ -1,0 +1,6 @@
+query allComments($postId: ID!, $limit: Int, $offset: Int) {
+  allComments(postId: $postId, limit: $limit, offset: $offset) {
+    id
+    content
+  }
+}

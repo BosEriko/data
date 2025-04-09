@@ -25,7 +25,6 @@ module Mutations
             password_digest: context[:current_user].password_digest,
             user_id: context[:current_user].id
           )
-
           {
             server: server,
             errors: []

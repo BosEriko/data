@@ -3,7 +3,7 @@ module Queries
     class All < Queries::BaseQuery
       REQUEST_DEFINITION = File.read(File.join(__dir__, "all.graphql"))
 
-      description 'Return all the posts.'
+      description 'Return all the posts inside a server.'
       argument :limit, Integer, required: false
       argument :offset, Integer, required: false
       type [Types::PostType], null: false

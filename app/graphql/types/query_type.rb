@@ -12,6 +12,9 @@ module Types
     # Post Query
     field :all_posts, resolver: Queries::Post::All
 
+    # Comment Query
+    field :all_comments, resolver: Queries::Comment::All
+
     # Member Query
     field :all_members, resolver: Queries::Member::All
   end
