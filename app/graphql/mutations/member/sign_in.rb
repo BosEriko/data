@@ -15,7 +15,7 @@ module Mutations
       def resolve(credentials: nil)
         return unless credentials
 
-        member = ::Member.find_by email: credentials[:email], server_id: ::Server.find_by(public_key: credentials[:server_key]).id
+        member = ::Member.find_by email: credentials[:email], server_id: context[:current_server].id
 
         return unless member
         return unless member.authenticate(credentials[:password])

@@ -1,5 +1,5 @@
-query allMembers($serverKey: String!, $limit: Int, $offset: Int) {
-  allMembers(serverKey: $serverKey, limit: $limit, offset: $offset) {
+query allMembers($limit: Int, $offset: Int) {
+  allMembers(limit: $limit, offset: $offset) {
     id
     firstName
     lastName

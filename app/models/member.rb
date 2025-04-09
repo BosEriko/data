@@ -12,10 +12,6 @@ class Member < ApplicationRecord
 
   before_save :nullify_invalid_user
 
-  def admin?
-    user_id.present?
-  end
-
   def registered_by
     user_id = versions.first&.whodunnit
     User.find_by(id: user_id) || nil

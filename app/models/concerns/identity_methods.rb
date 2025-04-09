@@ -6,10 +6,10 @@ module IdentityMethods
   end
 
   def admin?
-    self.class.name.downcase == "user"
+    is_a?(User)
   end
 
   def member?
-    self.class.name.downcase == "member"
+    is_a?(Member)
   end
 end

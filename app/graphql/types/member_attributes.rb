@@ -7,7 +7,6 @@ module Types
 
       argument :email, String, required: true
       argument :password, String, required: true
-      argument :server_key, String, required: true
     end
 
     class SignIn < BaseInputObject
@@ -15,13 +14,12 @@ module Types
 
       argument :email, String, required: true
       argument :password, String, required: true
-      argument :server_key, String, required: true
     end
 
     class Update < BaseInputObject
       graphql_name "MemberUpdate"
 
-      argument :id, ID, required: true
+      argument :id, ID, required: false
       argument :first_name, String, required: false
       argument :last_name, String, required: false
       argument :age, Integer, required: false

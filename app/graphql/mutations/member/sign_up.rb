@@ -14,7 +14,7 @@ module Mutations
       type Types::MemberType
 
       def resolve(sign_up_data: nil)
-        server_id = ::Server.find_by(public_key: sign_up_data&.[](:credentials)&.[](:server_key)).id
+        server_id = context[:current_server].id
         if context[:current_user] && context[:current_user].role == "user" && context[:current_user].server_ids.include?(server_id)
           ::PaperTrail.request.whodunnit = context[:current_user]&.id.to_s
         end

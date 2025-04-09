@@ -1,5 +1,5 @@
 mutation updateMember(
-  $id: ID!,
+  $id: ID,
   $firstName: String,
   $lastName: String,
   $age: Int

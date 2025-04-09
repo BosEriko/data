@@ -1,6 +1,6 @@
-mutation SignInMember($email: String!, $password: String!, $serverKey: String!) {
+mutation SignInMember($email: String!, $password: String!) {
   signInMember(
-    input: { credentials: { email: $email, password: $password, serverKey: $serverKey } }
+    input: { credentials: { email: $email, password: $password } }
   ) {
     token
     member {
