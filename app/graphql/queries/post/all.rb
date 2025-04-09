@@ -8,7 +8,7 @@ module Queries
       argument :offset, Integer, required: false
       type [Types::PostType], null: false
 
-      def resolve(limit: 20, offset: 0, server_key: null)
+      def resolve(limit: 20, offset: 0)
         check_authentication!
         check_server_admin!
 

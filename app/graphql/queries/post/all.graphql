@@ -1,5 +1,5 @@
-query allPosts($limit: Int, $offset: Int, $serverKey: String!) {
-  allPosts(limit: $limit, offset: $offset, serverKey: $serverKey) {
+query allPosts($limit: Int, $offset: Int) {
+  allPosts(limit: $limit, offset: $offset) {
     id
     title
     description
