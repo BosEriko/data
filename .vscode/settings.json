@@ -7,9 +7,11 @@
         {
           "name": "Rails Server",
           "commands": [
-            "sudo service redis-server start",
-            "sudo service postgresql start",
-            "bundle exec bin/dev"
+            "sudo service docker start",
+            "sudo docker network prune -f",
+            "sudo docker stop $(docker ps -aq)",
+            "sudo docker rm $(docker ps -aq)",
+            "cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && docker-compose up"
           ]
         }
       ]
@@ -17,8 +19,8 @@
     {
       "splitTerminals": [
         {
-          "name": "Console",
-          "commands": ["rails console"]
+          "name": "Rails Console",
+          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && docker-compose run web rails console"]
         }
       ]
     },
@@ -26,7 +28,7 @@
       "splitTerminals": [
         {
           "name": "Terminal",
-          "commands": ["clear"]
+          "commands": ["cd $(eval echo $BOS_ERIKO_DATA_DIRECTORY) && clear"]
         }
       ]
     }
