@@ -24,7 +24,7 @@ module Mutations
         else
           raise GraphQL::ExecutionError.new(
             user.errors.full_messages.join(", "),
-            extensions: { code: "USER_SIGN_UP_FAILED", errors: user.errors.to_h }
+            extensions: { code: "USER_SIGN_UP_FAILED", errors: user.errors }
           )
         end
       end
