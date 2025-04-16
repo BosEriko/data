@@ -14,10 +14,19 @@ module Mutations
       type Types::UserType
 
       def resolve(sign_up_data: nil)
-        ::User.create!(
+        user = ::User.new(
           email: sign_up_data&.[](:credentials)&.[](:email),
           password: sign_up_data&.[](:credentials)&.[](:password)
         )
+
+        if user.save
+          user
+        else
+          raise GraphQL::ExecutionError.new(
+            user.errors.full_messages.join(", "),
+            extensions: { code: "USER_SIGN_UP_FAILED", errors: user.errors.to_h }
+          )
+        end
       end
     end
   end
