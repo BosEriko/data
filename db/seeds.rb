@@ -77,7 +77,7 @@ end
 # Create servers
 servers.each_with_index do |server, index|
   created_server = Server.new(server)
-  created_server.creator_id = User.find_by(email: "bos@eriko.ph")
+  created_server.creator_id = User.first.id
   created_server.save!
 end
 
