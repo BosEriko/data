@@ -50,20 +50,10 @@ comments = [
 
 servers = [
   {
-    identifier: "kurustudio",
-    domains: ["kuru.studio", "server.kuru.studio", "social.kuru.studio"],
-    features: ["blog"],
-  },
-  {
-    identifier: "purrintables",
-    domains: ["purrintables.com"],
-    features: ["blog"],
-  },
-  {
     identifier: "boseriko",
     domains: ["boseriko.com"],
     features: ["blog"],
-  },
+  }
 ]
 
 # Create users
@@ -86,7 +76,28 @@ User.all.each_with_index do |user, index|
   created_member = Member.new()
   created_member.email = users[index][:email]
   created_member.password = users[index][:password]
-  created_member.server_id = Server.find_by(identifier: "kurustudio").id
+  created_member.first_name = users[index][:first_name]
+  created_member.last_name = users[index][:last_name]
+  created_member.age = 143
+  created_member.server_id = Server.first.id
   created_member.user_id = user.id
   created_member.save!
+end
+
+# Create posts
+quotes.each_with_index do |quote, index|
+  member_id = Member.find_by(email: users[index][:email]).id
+  server_id = Server.first.id
+  created_post = Post.new();
+  created_post.title = "A post by #{users[index][:first_name]}"
+  created_post.description = quote
+  created_post.member_id = member_id
+  created_post.server_id = server_id
+  created_post.save!
+  created_comment = created_post.comments.new(
+    content: comments[index],
+    member_id: member_id,
+    server_id: server_id
+  )
+  created_comment.save!
 end
