@@ -7,6 +7,7 @@ class Server < ApplicationRecord
   has_many :users, through: :members
 
   has_many :posts, dependent: :destroy
+  has_many :blogs, dependent: :destroy
 
   before_create :generate_keys
 

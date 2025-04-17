@@ -7,6 +7,7 @@ class Member < ApplicationRecord
   belongs_to :user, optional: true
 
   has_many :posts, dependent: :destroy
+  has_many :blogs, dependent: :destroy
 
   validates :email, presence: true, uniqueness: { scope: :server_id, message: "should be unique within a server" }
 

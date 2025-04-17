@@ -12,6 +12,9 @@ module Types
     # Post Query
     field :all_posts, resolver: Queries::Post::All
 
+    # Blog Query
+    field :all_blogs, resolver: Queries::Blog::All
+
     # Comment Query
     field :all_comments, resolver: Queries::Comment::All
 

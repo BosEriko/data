@@ -18,6 +18,10 @@ module Types
     field :create_post, mutation: Mutations::Post::Create
     field :update_post, mutation: Mutations::Post::Update
 
+    # Blog Mutations
+    field :create_blog, mutation: Mutations::Blog::Create
+    field :update_blog, mutation: Mutations::Blog::Update
+
     # Comment Mutations
     field :create_comment, mutation: Mutations::Comment::Create
 

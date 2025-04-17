@@ -1,0 +1,7 @@
+query allBlogs($limit: Int, $offset: Int) {
+  allBlogs(limit: $limit, offset: $offset) {
+    id
+    title
+    description
+  }
+}

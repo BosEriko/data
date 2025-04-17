@@ -1,0 +1,22 @@
+mutation updateBlog(
+  $id: ID!,
+  $title: String,
+  $description: String
+) {
+  updateBlog(
+    input: {
+      updateBlogAttributes: {
+        id: $id,
+        title: $title,
+        description: $description
+      }
+    }
+  ) {
+    errors
+    blog {
+      id
+      title
+      description
+    }
+  }
+}
