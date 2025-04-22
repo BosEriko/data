@@ -10,7 +10,6 @@ module Queries
 
       def resolve(limit: 20, offset: 0)
         check_authentication!
-        check_server_admin!
 
         posts = context[:current_server].posts.order('created_at DESC')
         posts.offset(offset).limit(limit)
