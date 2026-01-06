@@ -1,6 +1,0 @@
-query allServers($limit: Int, $offset: Int) {
-  allServers(limit: $limit, offset: $offset) {
-    id
-    identifier
-  }
-}

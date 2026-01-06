@@ -1,9 +1,0 @@
-mutation createServer($identifier: String!) {
-  createServer(input: { createServerAttributes: { identifier: $identifier } }) {
-    errors
-    server {
-      id
-      identifier
-    }
-  }
-}

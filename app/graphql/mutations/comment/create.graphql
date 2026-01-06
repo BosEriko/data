@@ -1,9 +1,0 @@
-mutation createComment($content: String!, $postId: ID!) {
-  createComment(input: { createCommentAttributes: { content: $content, postId: $postId } }) {
-    errors
-    comment {
-      id
-      content
-    }
-  }
-}
